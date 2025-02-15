@@ -17,7 +17,6 @@ Un juego de laberinto basado en el patrón **Factory Method**, donde el jugador 
 
 ## 📷 Diagrama UML
 
-![Diagrama UML]
 ![image](https://github.com/user-attachments/assets/94003741-e5d0-4d05-8ac6-e0357f9aabfe)
 
 
@@ -29,5 +28,5 @@ Un juego de laberinto basado en el patrón **Factory Method**, donde el jugador 
 
 1. **Clona este repositorio:**
    ```sh
-   git clone [https://github.com/usuario/juego-laberinto.git](https://github.com/sergiofm-04/JuegoLaberintoDS_Python.git)
+   git clone https://github.com/sergiofm-04/JuegoLaberintoDS_Python.git
    cd juego-laberinto
