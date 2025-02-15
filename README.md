@@ -20,7 +20,7 @@ Un juego de laberinto basado en el patrón **Factory Method**, donde el jugador 
 ![image](https://github.com/user-attachments/assets/94003741-e5d0-4d05-8ac6-e0357f9aabfe)
 
 
-*(Este diagrama muestra las clases y relaciones dentro del juego del laberinto, incluyendo la estructura del patrón Factory Method.)*  
+*(Este diagrama muestra las clases y relaciones dentro del juego del laberinto, incluyendo la estructura del patrón Factory Method).*  
 
 ---
 
