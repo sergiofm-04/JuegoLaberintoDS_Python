@@ -17,7 +17,8 @@ Un juego de laberinto basado en el patrón **Factory Method**, donde el jugador 
 
 ## 📷 Diagrama UML
 
-![image](https://github.com/user-attachments/assets/94003741-e5d0-4d05-8ac6-e0357f9aabfe)
+![image](https://github.com/user-attachments/assets/151de6c1-d579-4a75-959c-1a21bad89ea0)
+
 
 
 *(Este diagrama muestra las clases y relaciones dentro del juego del laberinto, incluyendo la estructura del patrón Factory Method).*  
