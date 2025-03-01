@@ -1,47 +1,46 @@
-import ElementoMapa
+from .Contenedor import Contenedor
 
-class Habitacion(ElementoMapa):
-    """Clase que representa una habitación en el laberinto."""
-
-    def __init__(self, num):
-        """Inicializa la habitación con su número y las conexiones a otras habitaciones."""
-        self.num = num
+class Habitacion(Contenedor):
+    def __init__(self):
+        super().__init__()
+        self.num = None
         self.norte = None
         self.sur = None
         self.este = None
         self.oeste = None
 
     def entrar(self):
-        """Imprime un mensaje indicando que el jugador ha entrado a la habitación."""
-        print("Estás en la habitación.")
+        print("Estás en la habitación")
 
-    # Métodos de acceso (getters y setters)
-    def get_norte(self):
-        return self.norte
-
-    def set_norte(self, habitacion):
-        self.norte = habitacion
-
-    def get_sur(self):
-        return self.sur
-
-    def set_sur(self, habitacion):
-        self.sur = habitacion
-
-    def get_este(self):
-        return self.este
-
-    def set_este(self, habitacion):
-        self.este = habitacion
-
-    def get_oeste(self):
-        return self.oeste
-
-    def set_oeste(self, habitacion):
-        self.oeste = habitacion
+    def es_habitacion(self):
+        return True
 
     def get_num(self):
         return self.num
 
-    def set_num(self, num):
-        self.num = num
+    def set_num(self, valor):
+        self.num = valor
+
+    def get_norte(self):
+        return self.norte
+
+    def set_norte(self, valor):
+        self.norte = valor
+
+    def get_sur(self):
+        return self.sur
+
+    def set_sur(self, valor):
+        self.sur = valor
+
+    def get_este(self):
+        return self.este
+
+    def set_este(self, valor):
+        self.este = valor
+
+    def get_oeste(self):
+        return self.oeste
+
+    def set_oeste(self, valor):
+        self.oeste = valor

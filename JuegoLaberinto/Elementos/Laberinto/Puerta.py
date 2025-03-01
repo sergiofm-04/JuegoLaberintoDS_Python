@@ -1,4 +1,4 @@
-import ElementoMapa
+from .ElementoMapa import ElementoMapa
 
 class Puerta(ElementoMapa):
     """Clase que representa una puerta en el laberinto."""
@@ -17,6 +17,9 @@ class Puerta(ElementoMapa):
         else:
             print("La puerta está cerrada.")
 
+    def entrar_alguien(self, alguien):
+        pass
+
     def get_abierta(self):
         """Devuelve el estado de la puerta (abierta o cerrada)."""
         return self.abierta
@@ -24,6 +27,9 @@ class Puerta(ElementoMapa):
     def set_abierta(self, estado):
         """Cambia el estado de la puerta."""
         self.abierta = estado
+
+    def es_puerta(self):
+        return True
 
     def get_lado1(self):
         """Devuelve el primer lado de la puerta."""

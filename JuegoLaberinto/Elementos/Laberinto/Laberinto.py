@@ -1,38 +1,21 @@
-import ElementoMapa
+from .Contenedor import Contenedor
 
-class Laberinto(ElementoMapa):
-    """Clase que representa un laberinto compuesto por habitaciones."""
+class Laberinto(Contenedor):
+    def agregar_habitacion(self, una_habitacion):
+        self.hijos.append(una_habitacion)
 
-    def __init__(self):
-        """Inicializa el laberinto con una lista vacía de habitaciones."""
-        self.habitaciones = []
-
-    def agregar_habitacion(self, habitacion):
-        """Agrega una habitación al laberinto."""
-        self.habitaciones.append(habitacion)
-
-    def eliminar_habitacion(self, habitacion):
-        """Elimina una habitación del laberinto si existe."""
-        if habitacion in self.habitaciones:
-            self.habitaciones.remove(habitacion)
-        else:
-            print("No existe ese objeto habitación.")
+    def eliminar_habitacion(self, una_habitacion):
+        try:
+            self.hijos.remove(una_habitacion)
+        except ValueError:
+            print("No existe ese objeto habitacion")
 
     def entrar(self):
-        """Define la lógica de entrada al laberinto (pendiente de implementación)."""
-        print("Entrando en el laberinto...")  # Podría moverse a la habitación 1
+        pass
+        # "qué significa entrar en el laberinto?? entrar en la habitación 1"
 
-    def obtener_habitacion(self, num):
-        """Devuelve la habitación con el número dado, o None si no existe."""
-        for habitacion in self.habitaciones:
-            if habitacion.get_num() == num:
-                return habitacion
-        return None  # Equivalente a `nil` en Smalltalk
-
-    def get_habitaciones(self):
-        """Devuelve la lista de habitaciones."""
-        return self.habitaciones
-
-    def set_habitaciones(self, habitaciones):
-        """Establece la lista de habitaciones."""
-        self.habitaciones = habitaciones
+    def obtener_habitacion(self, un_num):
+        for each in self.hijos:
+            if each.get_num() == un_num:
+                return each
+        return None

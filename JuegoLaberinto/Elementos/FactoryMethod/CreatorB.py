@@ -1,4 +1,4 @@
-import Creator
+from .Creator import Creator
 from Laberinto import ParedBomba
 
 class CreatorB(Creator):

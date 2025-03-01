@@ -1,11 +1,11 @@
-import Pared
+from .Pared import Pared
 
 class ParedBomba(Pared):
     """Clase que representa una pared bomba en el laberinto."""
 
     def __init__(self):
         """Inicializa la pared bomba como inactiva."""
-        super().__init__()
+        # super().__init__()
         self.activa = False
 
     def entrar(self):
