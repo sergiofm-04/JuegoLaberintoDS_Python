@@ -5,8 +5,8 @@ class Decorator(Hoja):
     Decorator es la interfaz común de los decoradores.
     """
 
-    def __init__(self, em=None):
-        self.em = em
+    def __init__(self):
+        self.em = None
 
     def get_em(self):
         return self.em

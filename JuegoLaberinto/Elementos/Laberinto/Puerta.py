@@ -1,7 +1,9 @@
 from .ElementoMapa import ElementoMapa
 
 class Puerta(ElementoMapa):
-    """Clase que representa una puerta en el laberinto."""
+    """
+    Clase que representa una puerta en el laberinto.
+    """
 
     def __init__(self):
         """Inicializa la puerta cerrada y sin lados asignados."""
@@ -10,26 +12,14 @@ class Puerta(ElementoMapa):
         self.lado1 = None
         self.lado2 = None
 
-    def entrar(self):
-        """Indica si la puerta está abierta o cerrada."""
-        if self.abierta:
-            print("La puerta está abierta.")
-        else:
-            print("La puerta está cerrada.")
-
-    def entrar_alguien(self, alguien):
-        pass
-
+    # Métodos de acceso
     def get_abierta(self):
-        """Devuelve el estado de la puerta (abierta o cerrada)."""
+        """Devuelve si la puerta está abierta."""
         return self.abierta
 
     def set_abierta(self, estado):
-        """Cambia el estado de la puerta."""
+        """Establece si la puerta está abierta."""
         self.abierta = estado
-
-    def es_puerta(self):
-        return True
 
     def get_lado1(self):
         """Devuelve el primer lado de la puerta."""
@@ -46,3 +36,44 @@ class Puerta(ElementoMapa):
     def set_lado2(self, habitacion):
         """Asigna el segundo lado de la puerta a una habitación."""
         self.lado2 = habitacion
+
+    # Métodos de estado
+    def abrir(self):
+        """Abre la puerta."""
+        self.set_abierta(True)
+        print("La puerta está abierta.")
+
+    def cerrar(self):
+        """Cierra la puerta."""
+        self.set_abierta(False)
+        print("La puerta está cerrada.")
+
+    # Movimiento
+    def entrar(self, alguien):
+        """
+        Define la acción de entrar en la puerta.
+        Si está abierta, mueve a alguien al lado opuesto.
+        """
+        if self.abierta:
+            if alguien.posicion == self.lado1:
+                self.lado2.entrar(alguien)
+            else:
+                self.lado1.entrar(alguien)
+        else:
+            print("La puerta está cerrada.")
+
+    # Consulta
+    def es_puerta(self):
+        """Indica que este objeto es una puerta."""
+        return True
+
+    # Impresión
+    def __str__(self):
+        """
+        Devuelve una representación en texto de la puerta.
+        Incluye los números de las habitaciones conectadas y su estado.
+        """
+        lado1_num = self.lado1.num if self.lado1 else "None"
+        lado2_num = self.lado2.num if self.lado2 else "None"
+        estado = "abierta" if self.abierta else "cerrada"
+        return f"Puerta {lado1_num}-{lado2_num} ({estado})"

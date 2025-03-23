@@ -24,7 +24,17 @@ class Creator:
         """Fabrica un bicho agresivo."""
         bicho = Bicho()
         bicho.modo = Agresivo()
+        bicho.vidas = 5
         bicho.poder = 5
+        return bicho
+    
+    def fabricar_bicho_agresivo_en_habitacion(self, unaHab):
+        """Fabrica un bicho agresivo en una habitación específica."""
+        bicho = Bicho()
+        bicho.modo = Agresivo()
+        bicho.vidas = 5
+        bicho.poder = 5
+        bicho.posicion = unaHab
         return bicho
 
     def fabricar_bicho_perezoso(self):
@@ -34,14 +44,27 @@ class Creator:
         bicho.poder = 5
         bicho.vidas = 1
         return bicho
+    
+    def fabricar_bicho_perezoso_en_habitacion(self, unaHab):
+        """Fabrica un bicho perezoso en una habitación específica."""
+        bicho = Bicho()
+        bicho.modo = Perezoso()
+        bicho.vidas = 1
+        bicho.poder = 1
+        bicho.posicion = unaHab
+        return bicho
 
     def fabricar_bomba(self):
         """Crea una nueva instancia de Bomba."""
         return Bomba()
 
+    """def fabricar_este(self):
+        # Crea una nueva instancia de Este.
+        return Este()"""
+    
     def fabricar_este(self):
         """Crea una nueva instancia de Este."""
-        return Este()
+        return Este.default()
 
     def fabricar_habitacion(self, num):
         """Crea una habitación con paredes en todas las direcciones."""
@@ -63,13 +86,21 @@ class Creator:
         """Crea una nueva instancia de Laberinto."""
         return Laberinto()
 
+    """def fabricar_norte(self):
+        # Crea una nueva instancia de Norte.
+        return Norte()"""
+
+    """def fabricar_oeste(self):
+        # Crea una nueva instancia de Oeste.
+        return Oeste()"""
+    
     def fabricar_norte(self):
         """Crea una nueva instancia de Norte."""
-        return Norte()
+        return Norte.default()
 
     def fabricar_oeste(self):
         """Crea una nueva instancia de Oeste."""
-        return Oeste()
+        return Oeste.default()
 
     def fabricar_pared(self):
         """Crea una nueva instancia de Pared."""
@@ -79,6 +110,10 @@ class Creator:
         """Crea una nueva instancia de Puerta."""
         return Puerta()
 
+    """def fabricar_sur(self):
+        # Crea una nueva instancia de Sur.
+        return Sur()"""
+    
     def fabricar_sur(self):
         """Crea una nueva instancia de Sur."""
-        return Sur()
+        return Sur.default()

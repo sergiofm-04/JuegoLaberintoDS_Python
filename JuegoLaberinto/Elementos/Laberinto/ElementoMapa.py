@@ -9,14 +9,7 @@ class ElementoMapa(ABC):
         self.padre = None
 
     @abstractmethod
-    def entrar(self):
-        """
-        Método abstracto que debe ser implementado por las subclases.
-        """
-        raise NotImplementedError("Este método debe ser implementado por las subclases.")
-
-    @abstractmethod
-    def entrar_alguien(self, alguien):
+    def entrar(self, alguien):
         """
         Método abstracto que debe ser implementado por las subclases para indicar quién entra.
         """
@@ -36,3 +29,9 @@ class ElementoMapa(ABC):
 
     def set_padre(self, unObjeto):
         self.padre = unObjeto
+
+    def recorrer(self, un_bloque):
+        """
+        Aplica un bloque de código (función) al elemento actual.
+        """
+        un_bloque(self)
