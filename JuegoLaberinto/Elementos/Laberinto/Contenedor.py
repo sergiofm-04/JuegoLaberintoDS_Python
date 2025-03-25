@@ -36,6 +36,27 @@ class Contenedor(ElementoMapa):
         """Establece los hijos del contenedor."""
         self.hijos = valor
 
+    # Movimiento
+    def ir_al_este(self, alguien):
+        """Mueve a alguien al este."""
+        if self.este:
+            self.este.entrar(alguien)
+
+    def ir_al_norte(self, alguien):
+        """Mueve a alguien al norte."""
+        if self.norte:
+            self.norte.entrar(alguien)
+
+    def ir_al_oeste(self, alguien):
+        """Mueve a alguien al oeste."""
+        if self.oeste:
+            self.oeste.entrar(alguien)
+
+    def ir_al_sur(self, alguien):
+        """Mueve a alguien al sur."""
+        if self.sur:
+            self.sur.entrar(alguien)
+
     # Gestión de orientaciones
     def agregar_orientacion(self, una_or):
         """Agrega una orientación al contenedor."""
