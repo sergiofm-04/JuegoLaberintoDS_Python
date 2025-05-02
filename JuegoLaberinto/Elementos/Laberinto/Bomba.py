@@ -9,6 +9,12 @@ class Bomba(Decorator):
         super().__init__()
         self.activa = False
 
+    def aceptar(un_visitor, self):
+        """
+        Permite que un visitante interactúe con la bomba.
+        """
+        un_visitor.visitar_bomba(self)
+
     def get_activa(self):
         """Devuelve si la bomba está activa."""
         return self.activa
@@ -29,3 +35,12 @@ class Bomba(Decorator):
         else:
             if self.get_em():
                 self.get_em().entrar(alguien)
+    
+    def es_bomba(self):
+        return True
+    
+    def __str__(self):
+        """
+        Devuelve una representación en texto de la bomba.
+        """
+        return f"Bomba activa: {self.activa}"

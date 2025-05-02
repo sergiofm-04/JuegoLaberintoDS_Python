@@ -14,6 +14,7 @@ class Juego:
         self.bichos = []
         self.hilos = {}
         self.person = None
+        self.prototipo = None
 
     # Gestión de bichos
     def agregar_bicho(self, un_bicho):
@@ -63,12 +64,13 @@ class Juego:
     # Gestión del personaje
     def agregar_personaje(self, nombre):
         """Agrega un personaje al juego."""
-        self.person = Personaje(nombre)
+        self.person = Personaje()
+        self.person.set_nombre(nombre)
         self.person.set_juego(self)
         if self.laberinto:
             self.laberinto.entrar(self.person)
 
-        # Ataques
+    # Ataques
     def buscar_bicho(self):
         """
         Busca un bicho en la misma posición que el personaje.
@@ -258,6 +260,19 @@ class Juego:
     
     def set_hilos(self, hilos):
         self.hilos = hilos
+
+    def get_prototipo(self):
+        return self.prototipo
+    
+    def set_prototipo(self, prototipo):
+        self.prototipo = prototipo
     
     def obtener_habitacion(self, numero):
         return self.laberinto.obtener_habitacion(numero)
+    
+    def clonar_laberinto(self):
+        """
+        Clona el prototipo del laberinto utilizando una copia profunda.
+        """
+        import copy
+        return copy.deepcopy(self.prototipo)

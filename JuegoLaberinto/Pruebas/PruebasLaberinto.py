@@ -7,34 +7,56 @@ from JuegoLaberinto.Elementos.Laberinto.Juego import Juego
 from JuegoLaberinto.Elementos.FactoryMethod.Creator import Creator
 
 class PruebasLaberinto(unittest.TestCase):
+    """
+    Clase de pruebas para el juego del laberinto.
+    """
+
     def get_fm(self):
+        """
+        Devuelve el Factory Method utilizado en las pruebas.
+        """
         return self.fm
-    
+
     def set_fm(self, fm):
+        """
+        Establece el Factory Method utilizado en las pruebas.
+        """
         self.fm = fm
-    
+
     def get_juego(self):
+        """
+        Devuelve el juego utilizado en las pruebas.
+        """
         return self.juego
-    
+
     def set_juego(self, juego):
+        """
+        Establece el juego utilizado en las pruebas.
+        """
         self.juego = juego
 
     def setUp(self):
-        """Configuración inicial para las pruebas."""
+        """
+        Configuración inicial para las pruebas.
+        """
         super().setUp()
         self.juego = Juego()
         self.fm = Creator()
         self.juego.crear_laberinto_2_habitaciones_fm(self.fm)
 
     def test_iniciales(self):
-        """Prueba iniciales del juego y laberinto."""
+        """
+        Prueba iniciales del juego y laberinto.
+        """
         self.assertIsNotNone(self.juego)
         self.assertIsNotNone(self.juego.laberinto)
         num_hab = len(self.juego.laberinto.hijos)
         self.assertEqual(num_hab, 2)
 
     def test_habitaciones(self):
-        """Prueba las habitaciones del laberinto."""
+        """
+        Prueba las habitaciones del laberinto.
+        """
         norte = self.fm.fabricar_norte()
         sur = self.fm.fabricar_sur()
         este = self.fm.fabricar_este()
@@ -45,18 +67,18 @@ class PruebasLaberinto(unittest.TestCase):
         self.assertTrue(hab1.es_habitacion())
         self.assertTrue(hab2.es_habitacion())
 
-        self.assertTrue(hab1.norte.es_pared())
-
-        self.assertTrue(hab1.obtener_elemento_or(sur).es_puerta())
+        self.assertTrue(hab1.obtener_elemento_or(norte).es_pared())
         self.assertTrue(hab1.obtener_elemento_or(este).es_pared())
+        self.assertTrue(hab1.obtener_elemento_or(oeste).es_pared())
 
-        self.assertTrue(hab2.obtener_elemento_or(norte).es_puerta())
+        self.assertTrue(hab2.obtener_elemento_or(sur).es_pared())
+        self.assertTrue(hab2.obtener_elemento_or(este).es_pared())
         self.assertTrue(hab2.obtener_elemento_or(oeste).es_pared())
 
-        pt12 = hab1.sur
+        pt12 = hab1.obtener_elemento_or(sur)
         self.assertTrue(pt12.es_puerta())
-        self.assertTrue(hab2.norte.es_puerta())
-        self.assertFalse(pt12.abierta)
+        self.assertTrue(hab2.obtener_elemento_or(norte).es_puerta())
+        self.assertFalse(pt12.esta_abierta())
 
 if __name__ == '__main__':
     unittest.main()

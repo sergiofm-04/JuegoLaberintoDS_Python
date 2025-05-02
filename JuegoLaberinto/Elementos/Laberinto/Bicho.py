@@ -13,60 +13,97 @@ class Bicho(Ente):
 
     # Comportamiento
     def actua(self):
-        """El bicho actúa según su modo."""
+        """
+        El bicho actúa según su estado y modo.
+        """
+        if self.estado_ente:
+            self.estado_ente.actua(self)
+
+    def puede_actuar(self):
+        """
+        Verifica si el bicho puede actuar según su modo.
+        """
         if self.modo:
             self.modo.actua(self)
 
-    # Ataques
-    def atacar(self):
-        """El bicho ataca buscando un personaje en el juego."""
-        if self.juego:
-            self.juego.buscar_personaje(self)
-
-    # Consulta
-    def es_agresivo(self):
-        """Devuelve True si el bicho es agresivo."""
-        return self.modo.es_agresivo() if self.modo else False
-
-    def es_perezoso(self):
-        """Devuelve True si el bicho es perezoso."""
-        return self.modo.es_perezoso() if self.modo else False
-
-    # Muerte
-    def he_muerto(self):
-        """Acción a realizar cuando el bicho muere."""
+    # Aviso
+    def avisar(self):
+        """
+        Notifica al juego que el bicho ha muerto.
+        """
         if self.juego:
             self.juego.terminar_bicho(self)
 
+    # Búsqueda de túneles
+    def buscar_tunel(self):
+        """
+        El bicho busca un túnel según su modo.
+        """
+        if self.modo:
+            self.modo.buscar_tunel_bicho(self)
+
+    # Consulta
+    def es_agresivo(self):
+        """
+        Devuelve True si el bicho es agresivo.
+        """
+        return self.modo.es_agresivo() if self.modo else False
+
+    def es_perezoso(self):
+        """
+        Devuelve True si el bicho es perezoso.
+        """
+        return self.modo.es_perezoso() if self.modo else False
+
     # Inicialización
     def ini_agresivo(self):
-        """Inicializa el bicho en modo agresivo."""
+        """
+        Inicializa el bicho en modo agresivo.
+        """
         self.modo = Agresivo()
         self.poder = 10
 
     def ini_perezoso(self):
-        """Inicializa el bicho en modo perezoso."""
+        """
+        Inicializa el bicho en modo perezoso.
+        """
         self.modo = Perezoso()
         self.poder = 1
 
     # Acceso
     def get_modo(self):
-        """Devuelve el modo del bicho."""
+        """
+        Devuelve el modo del bicho.
+        """
         return self.modo
 
     def set_modo(self, un_modo):
-        """Establece el modo del bicho."""
+        """
+        Establece el modo del bicho.
+        """
         self.modo = un_modo
 
     # Orientación
     def obtener_orientacion(self):
-        """Obtiene una orientación desde la posición actual."""
+        """
+        Obtiene una orientación desde la posición actual.
+        """
         if self.posicion:
             return self.posicion.obtener_orientacion()
         return None
 
+    # Ataques
+    def puede_atacar(self):
+        """
+        El bicho busca un personaje en el juego para atacar.
+        """
+        if self.juego:
+            self.juego.buscar_personaje(self)
+
     # Impresión
     def __str__(self):
-        """Devuelve una representación en texto del bicho."""
+        """
+        Devuelve una representación en texto del bicho.
+        """
         modo_str = str(self.modo) if self.modo else "Sin modo"
         return f"Bicho-{modo_str}"

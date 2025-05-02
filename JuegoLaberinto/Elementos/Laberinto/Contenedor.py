@@ -8,113 +8,126 @@ class Contenedor(ElementoMapa):
     def __init__(self):
         super().__init__()
         self.hijos = []
-        self.orientaciones = []
-        self.este = None
-        self.norte = None
+        self.forma = None
         self.num = None
-        self.oeste = None
-        self.sur = None
+
+    def aceptar(self, un_visitor):
+        """
+        Acepta un visitante (Visitor Pattern).
+        """
+        self.visitar_contenedor(un_visitor)
+        for hijo in self.hijos:
+            hijo.recorrer(un_visitor)
 
     # Gestión de hijos
     def agregar_hijo(self, un_em):
-        """Agrega un hijo al contenedor."""
+        """
+        Agrega un hijo al contenedor.
+        """
         un_em.set_padre(self)
         self.hijos.append(un_em)
 
     def eliminar_hijo(self, un_em):
-        """Elimina un hijo del contenedor."""
+        """
+        Elimina un hijo del contenedor.
+        """
         try:
             self.hijos.remove(un_em)
         except ValueError:
-            print("No existe ese objeto")
+            print("No existe ese objeto.")
 
     def get_hijos(self):
-        """Devuelve los hijos del contenedor."""
+        """
+        Devuelve los hijos del contenedor.
+        """
         return self.hijos
 
     def set_hijos(self, valor):
-        """Establece los hijos del contenedor."""
+        """
+        Establece los hijos del contenedor.
+        """
         self.hijos = valor
-
-    # Movimiento
-    def ir_al_este(self, alguien):
-        """Mueve a alguien al este."""
-        if self.este:
-            self.este.entrar(alguien)
-
-    def ir_al_norte(self, alguien):
-        """Mueve a alguien al norte."""
-        if self.norte:
-            self.norte.entrar(alguien)
-
-    def ir_al_oeste(self, alguien):
-        """Mueve a alguien al oeste."""
-        if self.oeste:
-            self.oeste.entrar(alguien)
-
-    def ir_al_sur(self, alguien):
-        """Mueve a alguien al sur."""
-        if self.sur:
-            self.sur.entrar(alguien)
 
     # Gestión de orientaciones
     def agregar_orientacion(self, una_or):
-        """Agrega una orientación al contenedor."""
-        self.orientaciones.append(una_or)
+        """
+        Agrega una orientación al contenedor.
+        """
+        if self.forma:
+            self.forma.agregar_orientacion(una_or)
 
     def obtener_elemento_or(self, una_or):
-        """Obtiene el elemento en una orientación específica."""
-        return una_or.obtener_elemento_or_en(self)
-
-    def get_orientaciones(self):
-        """Devuelve las orientaciones del contenedor."""
-        return self.orientaciones
-
-    def set_orientaciones(self, valor):
-        """Establece las orientaciones del contenedor."""
-        self.orientaciones = valor
+        """
+        Obtiene el elemento en una orientación específica.
+        """
+        #if self.forma:
+        return self.forma.obtener_elemento_or(una_or)
+        #return None
 
     def obtener_orientacion(self):
-        """Obtiene una orientación aleatoria del contenedor."""
-        import random
-        if self.orientaciones:
-            return random.choice(self.orientaciones)
+        """
+        Obtiene una orientación aleatoria del contenedor.
+        """
+        if self.forma:
+            return self.forma.obtener_orientacion()
         return None
 
+    def obtener_orientaciones(self):
+        """
+        Devuelve las orientaciones del contenedor.
+        """
+        if self.forma:
+            return self.forma.obtener_orientaciones()
+        return []
+
     def poner_en_or(self, una_or, un_em):
-        """Coloca un elemento en una orientación específica."""
-        una_or.poner_elemento(un_em, self)
+        """
+        Coloca un elemento en una orientación específica.
+        """
+        if self.forma:
+            self.forma.poner_en_or(una_or, un_em)
+
+    # Movimiento
+    def ir_al_este(self, alguien):
+        """
+        Mueve a alguien al este.
+        """
+        if self.forma:
+            self.forma.ir_al_este(alguien)
+
+    def ir_al_norte(self, alguien):
+        """
+        Mueve a alguien al norte.
+        """
+        if self.forma:
+            self.forma.ir_al_norte(alguien)
+
+    def ir_al_oeste(self, alguien):
+        """
+        Mueve a alguien al oeste.
+        """
+        if self.forma:
+            self.forma.ir_al_oeste(alguien)
+
+    def ir_al_sur(self, alguien):
+        """
+        Mueve a alguien al sur.
+        """
+        if self.forma:
+            self.forma.ir_al_sur(alguien)
 
     # Métodos de acceso
-    def get_este(self):
-        return self.este
+    def get_forma(self):
+        return self.forma
 
-    def set_este(self, valor):
-        self.este = valor
-
-    def get_norte(self):
-        return self.norte
-
-    def set_norte(self, valor):
-        self.norte = valor
+    def set_forma(self, valor):
+        self.forma = valor
 
     def get_num(self):
         return self.num
 
     def set_num(self, valor):
         self.num = valor
-
-    def get_oeste(self):
-        return self.oeste
-
-    def set_oeste(self, valor):
-        self.oeste = valor
-
-    def get_sur(self):
-        return self.sur
-
-    def set_sur(self, valor):
-        self.sur = valor
 
     # Recorrido
     def recorrer(self, un_bloque):
@@ -124,8 +137,14 @@ class Contenedor(ElementoMapa):
         un_bloque(self)
         for hijo in self.hijos:
             hijo.recorrer(un_bloque)
-        for orientacion in self.orientaciones:
+        for orientacion in self.obtener_orientaciones():
             orientacion.recorrer(un_bloque, contenedor=self)
+
+    def visitar_contenedor(self, un_visitor):
+        """
+        Método abstracto para visitar el contenedor.
+        """
+        raise NotImplementedError("Este método debe ser implementado por las subclases.")
 
     # Método de entrada
     def entrar(self, alguien):
@@ -134,3 +153,4 @@ class Contenedor(ElementoMapa):
         """
         print(f"{alguien} está en {self}")
         alguien.posicion = self
+        alguien.buscar_tunel()

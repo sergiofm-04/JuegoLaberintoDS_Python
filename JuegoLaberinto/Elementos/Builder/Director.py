@@ -1,5 +1,6 @@
 import json
 from .LaberintoBuilder import LaberintoBuilder
+from .LaberintoBuilderRombo import LaberintoBuilderRombo
 
 class Director:
     """
@@ -64,6 +65,8 @@ class Director:
         # Hojas
         if un_dic.get('tipo') == 'bomba':
             self.builder.fabricar_bomba_en(padre)
+        elif un_dic.get('tipo') == 'tunel':
+            self.builder.fabricar_tunel_en(padre)
 
         # Procesar hijos recursivamente
         hijos = un_dic.get('hijos', [])
@@ -72,7 +75,11 @@ class Director:
 
     def ini_builder(self):
         """Inicializa el builder para crear laberintos diferentes."""
-        self.builder = LaberintoBuilder()
+        forma = self.dict.get('forma')
+        if forma == 'cuadrado':
+            self.builder = LaberintoBuilder()
+        elif forma == 'rombo':
+            self.builder = LaberintoBuilderRombo()
 
     def leer_archivo(self, archivo):
         """Lee el archivo JSON y lo convierte en un diccionario."""

@@ -9,49 +9,82 @@ class Personaje(Ente):
         super().__init__()
         self.nombre = ""
 
-    # Ataques
-    def atacar(self):
-        """El personaje ataca buscando un bicho en el juego."""
-        if self.juego:
-            self.juego.buscar_bicho()
-
-    # Muerte
-    def he_muerto(self):
-        """Acción a realizar cuando el personaje muere."""
+    # Aviso
+    def avisar(self):
+        """
+        Notifica al juego que el personaje ha muerto.
+        """
         if self.juego:
             self.juego.muere_personaje()
 
     # Movimiento
+    def crear_nuevo_laberinto(self, un_tunel):
+        """
+        Crea un nuevo laberinto a través de un túnel.
+        """
+        un_tunel.crear_nuevo_laberinto(self)
+
     def ir_al_este(self):
-        """Mueve al personaje al este."""
+        """
+        Mueve al personaje al este.
+        """
         if self.posicion:
             self.posicion.ir_al_este(self)
 
     def ir_al_norte(self):
-        """Mueve al personaje al norte."""
+        """
+        Mueve al personaje al norte.
+        """
         if self.posicion:
             self.posicion.ir_al_norte(self)
 
     def ir_al_oeste(self):
-        """Mueve al personaje al oeste."""
+        """
+        Mueve al personaje al oeste.
+        """
         if self.posicion:
             self.posicion.ir_al_oeste(self)
 
     def ir_al_sur(self):
-        """Mueve al personaje al sur."""
+        """
+        Mueve al personaje al sur.
+        """
         if self.posicion:
             self.posicion.ir_al_sur(self)
 
     # Acceso
     def get_nombre(self):
-        """Devuelve el nombre del personaje."""
+        """
+        Devuelve el nombre del personaje.
+        """
         return self.nombre
 
     def set_nombre(self, nombre):
-        """Establece el nombre del personaje."""
+        """
+        Establece el nombre del personaje.
+        """
         self.nombre = nombre
+
+    def obtener_comandos(self):
+        """
+        Obtiene la lista de comandos disponibles en la posición actual.
+        """
+        lista = []
+        if self.posicion:
+            self.posicion.recorrer(lambda each: lista.extend(each.obtener_comandos()))
+        return lista
+
+    # Ataques
+    def puede_atacar(self):
+        """
+        Permite que el personaje ataque buscando un bicho en el juego.
+        """
+        if self.juego:
+            self.juego.buscar_bicho()
 
     # Impresión
     def __str__(self):
-        """Devuelve una representación en texto del personaje."""
-        return f"Personaje: {self.nombre}"
+        """
+        Devuelve una representación en texto del personaje.
+        """
+        return f"Player-{self.nombre}"

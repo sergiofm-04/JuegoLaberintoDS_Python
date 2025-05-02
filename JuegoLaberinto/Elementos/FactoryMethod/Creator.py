@@ -11,6 +11,7 @@ from ..Laberinto.Este import Este
 from ..Laberinto.Oeste import Oeste
 from ..Laberinto.Pared import Pared
 from ..Laberinto.Puerta import Puerta
+from ..Laberinto.Cuadrado import Cuadrado
 
 class Creator:
     """Clase Creator del patrón Factory Method."""
@@ -69,12 +70,13 @@ class Creator:
     def fabricar_habitacion(self, num):
         """Crea una habitación con paredes en todas las direcciones."""
         hab = Habitacion()
+        hab.forma = Cuadrado()
         hab.num = num
         hab.agregar_orientacion(self.fabricar_norte())
         hab.agregar_orientacion(self.fabricar_sur())
         hab.agregar_orientacion(self.fabricar_este())
         hab.agregar_orientacion(self.fabricar_oeste())
-        for orientacion in hab.orientaciones:
+        for orientacion in hab.obtener_orientaciones():
             hab.poner_en_or(orientacion, self.fabricar_pared())
         return hab
 

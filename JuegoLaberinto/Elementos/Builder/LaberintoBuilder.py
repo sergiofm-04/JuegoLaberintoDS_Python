@@ -12,6 +12,8 @@ from ..Laberinto.Este import Este
 from ..Laberinto.Oeste import Oeste
 from ..Laberinto.Pared import Pared
 from ..Laberinto.Puerta import Puerta
+from ..Laberinto.Tunel import Tunel
+from ..Laberinto.Cuadrado import Cuadrado
 
 class LaberintoBuilder:
     """
@@ -26,11 +28,8 @@ class LaberintoBuilder:
     def fabricar_armario(self, un_num, un_contenedor):
         arm = Armario()
         arm.num = un_num
-        arm.agregar_orientacion(self.fabricar_norte())
-        arm.agregar_orientacion(self.fabricar_sur())
-        arm.agregar_orientacion(self.fabricar_este())
-        arm.agregar_orientacion(self.fabricar_oeste())
-        for orientacion in arm.orientaciones:
+        arm.forma = self.fabricar_forma()
+        for orientacion in arm.obtener_orientaciones():
             arm.poner_en_or(orientacion, self.fabricar_pared())
         un_contenedor.agregar_hijo(arm)
         return arm
@@ -49,10 +48,7 @@ class LaberintoBuilder:
 
     def fabricar_bicho_modo(self, str_modo, posicion):
         hab = self.laberinto.obtener_habitacion(posicion)
-        if str_modo == "Agresivo":
-            bicho = self.fabricar_bicho_agresivo_en_habitacion(hab)
-        elif str_modo == "Perezoso":
-            bicho = self.fabricar_bicho_perezoso_en_habitacion(hab)
+        bicho = getattr(self, f"fabricar_bicho_{str_modo.lower()}")()
         hab.entrar(bicho)
         self.juego.agregar_bicho(bicho)
 
@@ -75,21 +71,27 @@ class LaberintoBuilder:
     def fabricar_este(self):
         return Este.default()
 
+    def fabricar_forma(self):
+        forma = Cuadrado()
+        forma.agregar_orientacion(self.fabricar_norte())
+        forma.agregar_orientacion(self.fabricar_sur())
+        forma.agregar_orientacion(self.fabricar_este())
+        forma.agregar_orientacion(self.fabricar_oeste())
+        return forma
+
     def fabricar_habitacion(self, un_num):
         hab = Habitacion()
         hab.num = un_num
-        hab.agregar_orientacion(self.fabricar_norte())
-        hab.agregar_orientacion(self.fabricar_sur())
-        hab.agregar_orientacion(self.fabricar_este())
-        hab.agregar_orientacion(self.fabricar_oeste())
-        for orientacion in hab.orientaciones:
+        hab.forma = self.fabricar_forma()
+        for orientacion in hab.obtener_orientaciones():
             hab.poner_en_or(orientacion, self.fabricar_pared())
         self.laberinto.agregar_habitacion(hab)
         return hab
 
     def fabricar_juego(self):
         self.juego = Juego()
-        self.juego.laberinto = self.laberinto
+        self.juego.prototipo = self.laberinto
+        self.juego.laberinto = self.juego.clonar_laberinto()
 
     def fabricar_laberinto(self):
         self.laberinto = Laberinto()
@@ -116,6 +118,10 @@ class LaberintoBuilder:
 
     def fabricar_sur(self):
         return Sur.default()
+
+    def fabricar_tunel_en(self, un_contenedor):
+        tunel = Tunel()
+        un_contenedor.agregar_hijo(tunel)
 
     # Métodos de acceso
     def get_juego(self):

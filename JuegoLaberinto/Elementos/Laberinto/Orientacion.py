@@ -11,7 +11,7 @@ class Orientacion(ABC):
         Define cómo un bicho camina en esta orientación.
         Debe ser implementado por las subclases.
         """
-        raise NotImplementedError("Subclasses should implement this!")
+        raise NotImplementedError("Subclasses must implement this method.")
 
     @abstractmethod
     def obtener_elemento_or_en(self, un_contenedor):
@@ -19,7 +19,7 @@ class Orientacion(ABC):
         Obtiene el elemento en esta orientación dentro de un contenedor.
         Debe ser implementado por las subclases.
         """
-        raise NotImplementedError("Subclasses should implement this!")
+        raise NotImplementedError("Subclasses must implement this method.")
 
     @abstractmethod
     def poner_elemento(self, un_em, en_un_contenedor):
@@ -27,7 +27,7 @@ class Orientacion(ABC):
         Coloca un elemento en esta orientación dentro de un contenedor.
         Debe ser implementado por las subclases.
         """
-        raise NotImplementedError("Subclasses should implement this!")
+        raise NotImplementedError("Subclasses must implement this method.")
 
     @abstractmethod
     def recorrer(self, un_bloque, un_contenedor):
@@ -35,4 +35,4 @@ class Orientacion(ABC):
         Aplica un bloque de código (función) a esta orientación dentro de un contenedor.
         Debe ser implementado por las subclases.
         """
-        raise NotImplementedError("Subclasses should implement this!")
+        raise NotImplementedError("Subclasses must implement this method.")

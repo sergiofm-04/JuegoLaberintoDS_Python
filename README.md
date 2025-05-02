@@ -48,6 +48,33 @@ El jugador debe moverse entre las habitaciones, evitando obstáculos y enemigos,
 ### 9. **Builder**
 - **Uso**: La clase `LaberintoBuilder` implementa el patrón Builder para construir laberintos complejos paso a paso, delegando la creación de habitaciones, puertas y otros elementos al `Director`.
 
+### 10. **Proxy**
+- **Uso**: Se utiliza para controlar el acceso a elementos del laberinto, como túneles o habitaciones protegidas, permitiendo realizar verificaciones antes de acceder al objeto real.
+
+### 11. **Adapter**
+- **Uso**: Permite integrar clases externas o incompatibles con la estructura del juego, adaptando su interfaz para que funcione con el sistema existente.
+
+### 12. **Bridge**
+- **Uso**: Separa la abstracción de la implementación en elementos como las puertas, permitiendo que diferentes tipos de puertas (por ejemplo, puertas mágicas o cerraduras) compartan la misma interfaz.
+
+### 13. **Mediator**
+- **Uso**: Coordina la interacción entre diferentes elementos del juego, como bichos y personajes, sin que estos se comuniquen directamente entre sí.
+
+### 14. **State**
+- **Uso**: Las puertas utilizan el patrón State para cambiar entre estados como `Abierta` y `Cerrada`, delegando el comportamiento al estado actual.
+
+### 15. **Prototype**
+- **Uso**: El laberinto utiliza el patrón Prototype para clonar configuraciones completas del laberinto, permitiendo crear copias profundas de estructuras complejas.
+
+### 16. **Observer**
+- **Uso**: Se utiliza para notificar a los elementos del juego (como bichos o personajes) cuando ocurren eventos importantes, como la activación de una bomba.
+
+### 17. **Command**
+- **Uso**: Permite encapsular acciones del jugador (como moverse o atacar) en objetos de comando, facilitando la implementación de funcionalidades como deshacer o repetir acciones.
+
+### 18. **Visitor**
+- **Uso**: Implementado en la clase `Visitor` para realizar operaciones sobre los elementos del laberinto sin modificar sus clases. Por ejemplo, `VisitorActivarBombas` activa todas las bombas en el laberinto.
+
 ---
 
 ## 📷 Diagrama UML
@@ -114,18 +141,19 @@ JuegoLaberinto/
 │   │   ├── Personaje.py
 │   │   ├── Juego.py
 │   │   └── ...
-│   ├── Laberinto/
-│   │   │   ├── Creator.py
+│   ├── Visitor/
+│   │   │   ├── Visitor.py
+|   |   |   └── ...
 │   └── ...
 │
 ├── Pruebas/
-│   ├── test_laberinto.py
-│   ├── test_bichos.py
+│   ├── LaberintoBuilderTest.py
+│   ├── PruebasLaberinto.py
 │   └── ...
 │
 ├── main.py
 ├── README.md
-└── Diagrama.png
+└── Diagrama Proyecto.png
 ```
 
 ---

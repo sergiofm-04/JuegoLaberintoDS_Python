@@ -17,6 +17,12 @@ class Modo:
         """
         un_bicho.atacar()
 
+    def buscar_tunel_bicho(self, un_bicho):
+        """
+        Método predeterminado para buscar un túnel.
+        """
+        pass  # No hace nada por defecto
+
     def caminar(self, un_bicho):
         """
         El bicho elige una orientación aleatoria y camina hacia ella.
@@ -29,7 +35,7 @@ class Modo:
         """
         Método abstracto que debe ser implementado por las subclases.
         """
-        raise NotImplementedError("Subclasses should implement this!")
+        raise NotImplementedError("Subclasses must implement this method.")
 
     def es_agresivo(self):
         """
