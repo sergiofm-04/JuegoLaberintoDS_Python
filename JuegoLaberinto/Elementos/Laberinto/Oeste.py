@@ -24,12 +24,11 @@ class Oeste(Orientacion):
         return cls._unica_instancia
 
     def caminar(self, un_bicho):
-        """
-        Define cómo un bicho camina hacia el Oeste.
-        """
         posicion = un_bicho.get_posicion()
-        if posicion and posicion.oeste:
-            posicion.oeste.entrar(un_bicho)
+        if posicion and hasattr(posicion, "forma"):
+            elemento = posicion.forma.obtener_elemento_or(self)
+            if elemento:
+                elemento.entrar(un_bicho)
 
     def obtener_elemento_or_en(self, un_contenedor):
         """
@@ -47,5 +46,7 @@ class Oeste(Orientacion):
         """
         Aplica un bloque de código (función) al elemento en la orientación Oeste.
         """
-        if un_contenedor.oeste:
-            un_contenedor.oeste.recorrer(un_bloque)
+        if hasattr(un_contenedor, "forma"):
+            elemento = un_contenedor.forma.get_oeste()
+            if elemento:
+                elemento.recorrer(un_bloque)

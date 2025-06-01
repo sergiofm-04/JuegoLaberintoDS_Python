@@ -3,6 +3,7 @@ from .Pared import Pared
 from .Puerta import Puerta
 from .Laberinto import Laberinto
 from .Personaje import Personaje
+from .Bicho import Bicho
 
 class Juego:
     """
@@ -31,9 +32,16 @@ class Juego:
 
     def lanzar_bicho(self, un_bicho):
         """Activa un bicho en el juego."""
+
+        import threading
+
         print(f"{un_bicho} se activa")
-        proceso = lambda: [un_bicho.actua() for _ in iter(lambda: un_bicho.esta_vivo(), False)]
-        self.hilos[un_bicho] = proceso
+        def proceso():
+            while un_bicho.esta_vivo():
+                un_bicho.actua()
+        thread = threading.Thread(target=proceso)
+        self.hilos[un_bicho] = thread
+        thread.start()
 
     def lanzar_bichos(self):
         """Activa todos los bichos en el juego."""
@@ -64,25 +72,52 @@ class Juego:
     # Gestión del personaje
     def agregar_personaje(self, nombre):
         """Agrega un personaje al juego."""
-        self.person = Personaje()
+        self.person = Personaje(nombre)
         self.person.set_nombre(nombre)
         self.person.set_juego(self)
         if self.laberinto:
             self.laberinto.entrar(self.person)
 
     # Ataques
-    def buscar_bicho(self):
+    def buscar_bicho(self, atacante):
         """
         Busca un bicho en la misma posición que el personaje.
         Si lo encuentra, el bicho es atacado por el personaje.
         """
-        pos_personaje = self.person.get_posicion()
-        bicho = next(
-            (each for each in self.bichos if each.esta_vivo() and each.get_posicion() == pos_personaje),
-            None
-        )
-        if bicho:
-            bicho.es_atacado_por(self.person)
+        from .EspadaAltair import EspadaAltair
+        from .FlechaYaka import FlechaYaka
+        from JuegoLaberinto.Elementos.Visitor.VisitorPuertasAbiertas import VisitorPuertasAbiertas
+        
+        if isinstance(atacante, Personaje):
+            pos_personaje = self.person.get_posicion()
+            if isinstance(self.person.get_arma(), FlechaYaka):
+                visitor = VisitorPuertasAbiertas()
+                self.laberinto.aceptar(visitor)
+                if visitor.resultado():
+                    for bicho in self.bichos:
+                        if bicho.esta_vivo():
+                            bicho.es_atacado_por(self.person)
+                else:
+                    print("No se puede utilizar la flecha, no están todas las puertas abiertas.")
+            else:
+                bicho = next(
+                    (each for each in self.bichos if each.esta_vivo() and each.get_posicion() == pos_personaje),
+                    None
+                )
+                if bicho:
+                    if isinstance(self.person.get_arma(), EspadaAltair):
+                        bicho.es_atacado_por(self.person)
+                        bicho.cambiar_modo()
+                    else:
+                        bicho.es_atacado_por(self.person)
+        elif isinstance(atacante, Bicho):
+            pos_bicho = atacante.get_posicion()
+            bicho = next(
+                (each for each in self.bichos if each.esta_vivo() and each.get_posicion() == pos_bicho and each != atacante),
+                None
+            )
+            if bicho:
+                bicho.es_atacado_por(atacante)
 
     def buscar_personaje(self, un_bicho):
         """
@@ -100,15 +135,39 @@ class Juego:
         self.terminar_bichos()
 
     # Gestión del laberinto
+    """def abrir_puertas(self):
+        Abre todas las puertas del laberinto
+        if self.laberinto:
+            self.laberinto.abrir_puertas()"""
+    
     def abrir_puertas(self):
-        """Abre todas las puertas del laberinto."""
-        if self.laberinto:
-            self.laberinto.abrir_puertas()
+        """
+        Abre todas las puertas del laberinto solo una vez por instancia.
+        """
+        puertas_visitadas = set()
+        def abrir_si_puerta(each):
+            if each.es_puerta():
+                if id(each) not in puertas_visitadas:
+                    each.abrir()
+                    puertas_visitadas.add(id(each))
+        self.laberinto.recorrer(abrir_si_puerta)
 
-    def cerrar_puertas(self):
-        """Cierra todas las puertas del laberinto."""
+    """def cerrar_puertas(self):
+        Cierra todas las puertas del laberinto
         if self.laberinto:
-            self.laberinto.cerrar_puertas()
+            self.laberinto.cerrar_puertas()"""
+    
+    def cerrar_puertas(self):
+        """
+        Cierra todas las puertas del laberinto solo una vez por instancia.
+        """
+        puertas_visitadas = set()
+        def cerrar_si_puerta(each):
+            if each.es_puerta():
+                if id(each) not in puertas_visitadas:
+                    each.cerrar()
+                    puertas_visitadas.add(id(each))
+        self.laberinto.recorrer(cerrar_si_puerta)
 
     def crear_laberinto_2_habitaciones(self):
         """Crea un laberinto con dos habitaciones conectadas por una puerta."""

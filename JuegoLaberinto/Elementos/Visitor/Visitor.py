@@ -38,3 +38,7 @@ class Visitor:
         Visita un túnel.
         """
         pass
+
+    def visitar_laberinto(self, laberinto):
+        # No es necesario hacer nada para el laberinto en sí
+        pass

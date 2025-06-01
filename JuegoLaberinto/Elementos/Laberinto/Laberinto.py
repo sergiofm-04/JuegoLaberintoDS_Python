@@ -53,12 +53,21 @@ class Laberinto(Contenedor):
             hab1.entrar(alguien)
 
     # Recorrido
-    def aceptar(self, un_visitor):
-        """
+    """def aceptar(self, un_visitor):
+        
         Acepta un visitante (Visitor Pattern).
-        """
+        
         for hijo in self.hijos:
-            hijo.recorrer(un_visitor)
+            hijo.recorrer(un_visitor)"""
+    
+    def aceptar(self, un_visitor):
+        self.visitar_contenedor(un_visitor)
+        for hijo in self.hijos:
+            hijo.aceptar(un_visitor)
+        for orientacion in self.obtener_orientaciones():
+            orientacion_elemento = self.forma.obtener_elemento_or(orientacion)
+            if orientacion_elemento:
+                orientacion_elemento.aceptar(un_visitor)
 
     def recorrer(self, un_bloque):
         """
@@ -74,3 +83,6 @@ class Laberinto(Contenedor):
         Devuelve una representación en texto del laberinto.
         """
         return "Laberinto"
+
+    def visitar_contenedor(self, un_visitor):
+        un_visitor.visitar_laberinto(self)

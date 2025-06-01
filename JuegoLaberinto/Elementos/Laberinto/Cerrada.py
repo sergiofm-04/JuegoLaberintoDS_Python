@@ -24,3 +24,6 @@ class Cerrada(EstadoPuerta):
         Indica que alguien choca con la puerta cerrada.
         """
         print(f"{alguien} choca con puerta cerrada.")
+
+    def __str__(self):
+        return "Cerrada"

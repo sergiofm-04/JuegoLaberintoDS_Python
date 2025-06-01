@@ -36,12 +36,11 @@ class Este(Orientacion):
         self._initialized = True
 
     def caminar(self, un_bicho):
-        """
-        Define cómo un bicho camina hacia el Este.
-        """
         posicion = un_bicho.get_posicion()
-        if posicion and posicion.este:
-            posicion.este.entrar(un_bicho)
+        if posicion and hasattr(posicion, "forma"):
+            elemento = posicion.forma.obtener_elemento_or(self)
+            if elemento:
+                elemento.entrar(un_bicho)
 
     def obtener_elemento_or_en(self, un_contenedor):
         """
@@ -59,5 +58,7 @@ class Este(Orientacion):
         """
         Aplica un bloque de código (función) al elemento en la orientación Este.
         """
-        if un_contenedor.este:
-            un_contenedor.este.recorrer(un_bloque)
+        if hasattr(un_contenedor, "forma"):
+            elemento = un_contenedor.forma.get_este()
+            if elemento:
+                elemento.recorrer(un_bloque)

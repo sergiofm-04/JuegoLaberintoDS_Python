@@ -48,3 +48,9 @@ class Modo:
         Devuelve False por defecto. Las subclases pueden sobrescribir este método.
         """
         return False
+    
+    def es_hashashin(self):
+        """
+        Devuelve False por defecto. Las subclases pueden sobrescribir este método.
+        """
+        return False

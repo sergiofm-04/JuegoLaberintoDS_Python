@@ -23,13 +23,23 @@ class Sur(Orientacion):
             cls._unica_instancia = super(Sur, cls).__new__(cls, *args, **kwargs)
         return cls._unica_instancia
 
-    def caminar(self, un_bicho):
-        """
+    """def caminar(self, un_bicho):
+        
         Define cómo un bicho camina hacia el Sur.
-        """
+        
         posicion = un_bicho.get_posicion()
-        if posicion and posicion.sur:
-            posicion.sur.entrar(un_bicho)
+        elemento = posicion.forma.get_sur()
+        if posicion and elemento:
+            elemento.entrar(un_bicho)
+        
+        posicion.ir_al_sur(un_bicho)"""
+    
+    def caminar(self, un_bicho):
+        posicion = un_bicho.get_posicion()
+        if posicion and hasattr(posicion, "forma"):
+            elemento = posicion.forma.obtener_elemento_or(self)
+            if elemento:
+                elemento.entrar(un_bicho)
 
     def obtener_elemento_or_en(self, un_contenedor):
         """
@@ -47,5 +57,7 @@ class Sur(Orientacion):
         """
         Aplica un bloque de código (función) al elemento en la orientación Sur.
         """
-        if un_contenedor.sur:
-            un_contenedor.sur.recorrer(un_bloque)
+        if hasattr(un_contenedor, "forma"):
+            elemento = un_contenedor.forma.get_sur()
+            if elemento:
+                elemento.recorrer(un_bloque)

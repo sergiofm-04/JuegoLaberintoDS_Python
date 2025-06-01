@@ -177,7 +177,7 @@ class LaberintoBuilderTest(unittest.TestCase):
         self.assertIsNotNone(bicho)
         hab = self.juego.obtener_habitacion(1)
         self.assertEqual(bicho.posicion, hab)
-        self.assertEqual(bicho.vidas, 5)
+        self.assertEqual(bicho.vidas, 15)
 
     def test_bicho_ataca(self):
         """
@@ -211,7 +211,7 @@ class LaberintoBuilderTest(unittest.TestCase):
         hab1.entrar(person)
         person.atacar()
 
-        self.assertEqual(bicho.vidas, 4)
+        self.assertEqual(bicho.vidas, 12)
 
 if __name__ == '__main__':
     unittest.main()

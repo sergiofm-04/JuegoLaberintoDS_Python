@@ -5,9 +5,13 @@ class Personaje(Ente):
     Representa al usuario en el juego.
     """
 
-    def __init__(self):
+    def __init__(self, nombre):
         super().__init__()
-        self.nombre = ""
+        self.nombre = nombre
+        self.llaves = []
+        self.arma_eq = None
+        self.poder = 3
+        self.vidas = 300
 
     # Aviso
     def avisar(self):
@@ -64,6 +68,18 @@ class Personaje(Ente):
         Establece el nombre del personaje.
         """
         self.nombre = nombre
+    
+    def get_arma(self):
+        """
+        Devuelve el arma equipada del personaje.
+        """
+        return self.arma_eq
+    
+    def set_arma(self, arma):
+        """
+        Establece el arma equipada del personaje.
+        """
+        self.arma_eq = arma
 
     def obtener_comandos(self):
         """
@@ -80,7 +96,7 @@ class Personaje(Ente):
         Permite que el personaje ataque buscando un bicho en el juego.
         """
         if self.juego:
-            self.juego.buscar_bicho()
+            self.juego.buscar_bicho(self)
 
     # Impresión
     def __str__(self):
@@ -88,3 +104,15 @@ class Personaje(Ente):
         Devuelve una representación en texto del personaje.
         """
         return f"Player-{self.nombre}"
+
+    def recoger_arma(self, arma):
+        """
+        Añade un arma al inventario del personaje y aumenta su poder.
+        """
+        if self.arma_eq:
+            print(f"{self.nombre} ya tiene un arma equipada: {self.arma_eq.nombre}. Reemplazando por {arma.nombre}.")
+            self.poder -= self.arma_eq.poder_extra
+        self.set_arma(arma)
+        self.poder += arma.poder_extra
+        print(f"{self.nombre} ha recogido {arma} de poder {arma.poder_extra}. Antes tenía {self.poder - arma.poder_extra} de poder, y ahora tiene {self.poder} de poder.")
+        arma.recogida = True

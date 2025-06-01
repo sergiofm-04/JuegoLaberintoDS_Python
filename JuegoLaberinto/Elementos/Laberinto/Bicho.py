@@ -1,6 +1,7 @@
 from .Ente import Ente
 from .Agresivo import Agresivo
 from .Perezoso import Perezoso
+from .Hashashin import Hashashin
 
 class Bicho(Ente):
     """
@@ -69,6 +70,13 @@ class Bicho(Ente):
         """
         self.modo = Perezoso()
         self.poder = 1
+    
+    def ini_hashashin(self):
+        """
+        Inicializa el bicho en modo hashashin.
+        """
+        self.modo = Hashashin()
+        self.poder = 5
 
     # Acceso
     def get_modo(self):
@@ -95,9 +103,11 @@ class Bicho(Ente):
     # Ataques
     def puede_atacar(self):
         """
-        El bicho busca un personaje en el juego para atacar.
+        El bicho busca un personaje en el juego para atacar. Si es hashashin, busca otros bichos.
         """
-        if self.juego:
+        if isinstance(self.modo, Hashashin):
+            self.juego.buscar_bicho(self)
+        elif isinstance(self.modo, Agresivo):
             self.juego.buscar_personaje(self)
 
     # Impresión
@@ -106,4 +116,11 @@ class Bicho(Ente):
         Devuelve una representación en texto del bicho.
         """
         modo_str = str(self.modo) if self.modo else "Sin modo"
-        return f"Bicho-{modo_str}"
+        return f"Bicho-{modo_str} en {self.posicion}"
+    
+    def cambiar_modo(self):
+        """
+        Cambia el modo del bicho entre agresivo y perezoso.
+        """
+        self.ini_hashashin()
+        print("El bicho ha cambiado a modo Hashashin (fue atacado con la Espada de Altair).")

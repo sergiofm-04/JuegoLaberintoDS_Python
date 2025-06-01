@@ -14,8 +14,11 @@ El jugador debe moverse entre las habitaciones, evitando obstáculos y enemigos,
 
 ✅ Estructura modular basada en orientación a objetos.  
 ✅ Implementación de múltiples patrones de diseño para garantizar flexibilidad, escalabilidad y reutilización del código.  
-✅ Soporte para distintos tipos de elementos del mapa, como paredes, puertas y habitaciones.  
-✅ Posibilidad de expandir el juego con nuevos elementos fácilmente.
+✅ Soporte para distintos tipos de elementos del mapa, como paredes, puertas, cofres, armas y habitaciones.  
+✅ Interfaz gráfica con iconos para personajes, bichos, cofres y armas.  
+✅ Refresco automático de la interfaz para mostrar el movimiento de los bichos en tiempo real.  
+✅ Las puertas se dibujan en el lado correcto de cada habitación y su color indica si están abiertas (verde) o cerradas (rojo).  
+✅ Los bichos muestran un icono distinto según su modo (agresivo, perezoso o hashashin).
 
 ---
 
@@ -101,20 +104,28 @@ El jugador debe moverse entre las habitaciones, evitando obstáculos y enemigos,
 
 3. **Ejecuta el juego:**
    ```sh
-   python main.py
+   python interfaz.py
    ```
 
 ---
 
 ## 🚀 Cómo Jugar
 
-(Más adelante...)
+🖱️ Usa las teclas WASD para mover al personaje por el laberinto.
+🖱️ Pulsa la tecla de ataque (espacio) para atacar a los bichos si tienes un arma equipada.
+🖱️ Las armas solo aparecen en la habitación si están disponibles para recoger (no se muestran las armas dentro de cofres).
+🖱️ Los cofres se muestran como iconos y pueden contener armas; para obtenerlas, entra a la habitación que contiene el cofre.
+🖱️ El color de las puertas indica su estado: verde (abierta), rojo (cerrada).
+🖱️ Los bichos se mueven automáticamente y su icono indica su modo de comportamiento (ver carpeta imágenes para el significado de cada imagen).
 
 ---
 
 ## 📂 Estructura del Proyecto
 
 ```
+imagenes/
+├── bicho_agr.png
+└── ...
 JuegoLaberinto/
 │
 ├── Elementos/
@@ -151,16 +162,17 @@ JuegoLaberinto/
 │   ├── PruebasLaberinto.py
 │   └── ...
 │
-├── main.py
-├── README.md
-└── Diagrama Proyecto.png
+interfaz.py
+README.md
+Diagrama Proyecto.png
+...
 ```
 
 ---
 
 ## 🧑‍💻 Contribuciones
 
-No se aceptan contribuciones al menos hasta la finalización del proyecto para la asignatura (mes de mayo).
+PROYECTO FINALIZADO A DÍA 1 DE JUNIO DE 2025.
 
 ---
 

@@ -14,6 +14,13 @@ from ..Laberinto.Pared import Pared
 from ..Laberinto.Puerta import Puerta
 from ..Laberinto.Tunel import Tunel
 from ..Laberinto.Cuadrado import Cuadrado
+from ..Laberinto.EspadaAltair import EspadaAltair
+from ..Laberinto.Daga import Daga
+from ..Laberinto.Katana import Katana
+from ..Laberinto.FlechaYaka import FlechaYaka
+from ..Laberinto.Vara import Vara
+from ..Laberinto.Cofre import Cofre
+from ..Laberinto.Hashashin import Hashashin
 
 class LaberintoBuilder:
     """
@@ -37,7 +44,14 @@ class LaberintoBuilder:
     def fabricar_bicho_agresivo(self):
         bicho = Bicho()
         bicho.modo = Agresivo()
-        bicho.vidas = 5
+        bicho.vidas = 15
+        bicho.poder = 5
+        return bicho
+    
+    def fabricar_bicho_hashashin(self):
+        bicho = Bicho()
+        bicho.modo = Hashashin()
+        bicho.vidas = 15
         bicho.poder = 5
         return bicho
 
@@ -55,7 +69,7 @@ class LaberintoBuilder:
     def fabricar_bicho_perezoso(self):
         bicho = Bicho()
         bicho.modo = Perezoso()
-        bicho.vidas = 1
+        bicho.vidas = 10
         bicho.poder = 1
         return bicho
 
@@ -67,6 +81,26 @@ class LaberintoBuilder:
     def fabricar_bomba_en(self, un_contenedor):
         bmb = Bomba()
         un_contenedor.agregar_hijo(bmb)
+    
+    def fabricar_espada_en(self, un_contenedor):
+        arma = EspadaAltair()
+        un_contenedor.agregar_hijo(arma)
+    
+    def fabricar_daga_en(self, un_contenedor):
+        arma = Daga()
+        un_contenedor.agregar_hijo(arma)
+    
+    def fabricar_katana_en(self, un_contenedor):
+        arma = Katana()
+        un_contenedor.agregar_hijo(arma)
+    
+    def fabricar_flecha_en(self, un_contenedor):
+        arma = FlechaYaka()
+        un_contenedor.agregar_hijo(arma)
+    
+    def fabricar_vara_en(self, un_contenedor):
+        arma = Vara()
+        un_contenedor.agregar_hijo(arma)
 
     def fabricar_este(self):
         return Este.default()
@@ -87,11 +121,22 @@ class LaberintoBuilder:
             hab.poner_en_or(orientacion, self.fabricar_pared())
         self.laberinto.agregar_habitacion(hab)
         return hab
+    
+    def fabricar_cofre(self, un_num, un_contenedor):
+        cofre = Cofre(un_num)
+        cofre.forma = self.fabricar_forma()
+        un_contenedor.agregar_hijo(cofre)
+        cofre.padre = un_contenedor
+        for orientacion in cofre.obtener_orientaciones():
+            cofre.poner_en_or(orientacion, self.fabricar_pared())
+        self.laberinto.agregar_habitacion(cofre)
+        return cofre
 
     def fabricar_juego(self):
         self.juego = Juego()
-        self.juego.prototipo = self.laberinto
-        self.juego.laberinto = self.juego.clonar_laberinto()
+        # self.juego.prototipo = self.laberinto
+        # self.juego.laberinto = self.juego.clonar_laberinto()
+        self.juego.laberinto = self.laberinto
 
     def fabricar_laberinto(self):
         self.laberinto = Laberinto()

@@ -30,3 +30,6 @@ class Abierta(EstadoPuerta):
         Indica que la puerta está abierta.
         """
         return True
+
+    def __str__(self):
+        return "Abierta"

@@ -22,3 +22,9 @@ class Pared(ElementoMapa):
         Devuelve una representación en texto de la pared.
         """
         return "Pared"
+
+    def aceptar(self, un_visitor):
+        """
+        Acepta un visitante (Visitor Pattern).
+        """
+        un_visitor.visitar_pared(self)

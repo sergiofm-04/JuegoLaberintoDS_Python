@@ -61,12 +61,24 @@ class Director:
             con = self.builder.fabricar_habitacion(un_dic.get('num'))
         elif un_dic.get('tipo') == 'armario':
             con = self.builder.fabricar_armario(un_dic.get('num'), padre)
+        elif un_dic.get('tipo') == 'cofre':
+            con = self.builder.fabricar_cofre(un_dic.get('num'), padre)
 
         # Hojas
         if un_dic.get('tipo') == 'bomba':
             self.builder.fabricar_bomba_en(padre)
         elif un_dic.get('tipo') == 'tunel':
             self.builder.fabricar_tunel_en(padre)
+        elif un_dic.get('tipo') == 'espada':
+            self.builder.fabricar_espada_en(padre)
+        elif un_dic.get('tipo') == 'daga':
+            self.builder.fabricar_daga_en(padre)
+        elif un_dic.get('tipo') == 'katana':
+            self.builder.fabricar_katana_en(padre)
+        elif un_dic.get('tipo') == 'flecha':
+            self.builder.fabricar_flecha_en(padre)
+        elif un_dic.get('tipo') == 'vara':
+            self.builder.fabricar_vara_en(padre)
 
         # Procesar hijos recursivamente
         hijos = un_dic.get('hijos', [])

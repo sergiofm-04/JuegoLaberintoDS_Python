@@ -23,13 +23,20 @@ class Norte(Orientacion):
             cls._unica_instancia = super(Norte, cls).__new__(cls, *args, **kwargs)
         return cls._unica_instancia
 
-    def caminar(self, un_bicho):
-        """
+    """def caminar(self, un_bicho):
+        
         Define cómo un bicho camina hacia el Norte.
-        """
+        
         posicion = un_bicho.get_posicion()
         if posicion and posicion.norte:
-            posicion.norte.entrar(un_bicho)
+            posicion.norte.entrar(un_bicho)"""
+    
+    def caminar(self, un_bicho):
+        posicion = un_bicho.get_posicion()
+        if posicion and hasattr(posicion, "forma"):
+            elemento = posicion.forma.obtener_elemento_or(self)
+            if elemento:
+                elemento.entrar(un_bicho)
 
     def obtener_elemento_or_en(self, un_contenedor):
         """
@@ -47,5 +54,7 @@ class Norte(Orientacion):
         """
         Aplica un bloque de código (función) al elemento en la orientación Norte.
         """
-        if un_contenedor.norte:
-            un_contenedor.norte.recorrer(un_bloque)
+        if hasattr(un_contenedor, "forma"):
+            elemento = un_contenedor.forma.get_norte()
+            if elemento:
+                elemento.recorrer(un_bloque)

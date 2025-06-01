@@ -103,3 +103,6 @@ class Puerta(ElementoMapa):
         lado1_num = self.lado1.num if self.lado1 else "None"
         lado2_num = self.lado2.num if self.lado2 else "None"
         return f"Puerta {lado1_num}-{lado2_num} ({self.estado})"
+
+    def aceptar(self, un_visitor):
+        un_visitor.visitar_puerta(self)

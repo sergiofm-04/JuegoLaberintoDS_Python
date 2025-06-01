@@ -140,3 +140,9 @@ class Ente:
         Clona el laberinto del juego asociado.
         """
         return self.juego.clonar_laberinto()
+    
+    def buscar_cofre(self):
+        """
+        Acción predeterminada para buscar un cofre.
+        """
+        pass

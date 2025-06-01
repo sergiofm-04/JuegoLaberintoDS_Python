@@ -1,4 +1,6 @@
 from .ElementoMapa import ElementoMapa
+from .Arma import Arma
+from .Personaje import Personaje
 
 class Contenedor(ElementoMapa):
     """
@@ -11,13 +13,22 @@ class Contenedor(ElementoMapa):
         self.forma = None
         self.num = None
 
-    def aceptar(self, un_visitor):
-        """
+    """def aceptar(self, un_visitor):
+        
         Acepta un visitante (Visitor Pattern).
-        """
+        
         self.visitar_contenedor(un_visitor)
         for hijo in self.hijos:
-            hijo.recorrer(un_visitor)
+            hijo.recorrer(un_visitor)"""
+    
+    def aceptar(self, un_visitor):
+        self.visitar_contenedor(un_visitor)
+        for hijo in self.hijos:
+            hijo.aceptar(un_visitor)
+        for orientacion in self.obtener_orientaciones():
+            orientacion_elemento = self.forma.obtener_elemento_or(orientacion)
+            if orientacion_elemento:
+                orientacion_elemento.aceptar(un_visitor)
 
     # Gestión de hijos
     def agregar_hijo(self, un_em):
@@ -138,7 +149,7 @@ class Contenedor(ElementoMapa):
         for hijo in self.hijos:
             hijo.recorrer(un_bloque)
         for orientacion in self.obtener_orientaciones():
-            orientacion.recorrer(un_bloque, contenedor=self)
+            orientacion.recorrer(un_bloque, un_contenedor=self)
 
     def visitar_contenedor(self, un_visitor):
         """
@@ -151,6 +162,19 @@ class Contenedor(ElementoMapa):
         """
         Define la acción de entrar en el contenedor.
         """
+        from .Cofre import Cofre
+        from .AbrirCofre import AbrirCofre
+
+
         print(f"{alguien} está en {self}")
         alguien.posicion = self
         alguien.buscar_tunel()
+        
+        if isinstance(alguien, Personaje):
+            for elemento in self.hijos:
+                if isinstance(elemento, Arma) and not elemento.recogida:
+                    elemento.entrar(alguien)
+                elif isinstance(elemento, Cofre):
+                    comando = AbrirCofre()
+                    comando.receptor = elemento
+                    comando.ejecutar(alguien)
