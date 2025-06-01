@@ -111,11 +111,11 @@ El jugador debe moverse entre las habitaciones, evitando obstáculos y enemigos,
 
 ## 🚀 Cómo Jugar
 
-🖱️ Usa las teclas WASD para mover al personaje por el laberinto.
-🖱️ Pulsa la tecla de ataque (espacio) para atacar a los bichos si tienes un arma equipada.
-🖱️ Las armas solo aparecen en la habitación si están disponibles para recoger (no se muestran las armas dentro de cofres).
-🖱️ Los cofres se muestran como iconos y pueden contener armas; para obtenerlas, entra a la habitación que contiene el cofre.
-🖱️ El color de las puertas indica su estado: verde (abierta), rojo (cerrada).
+🖱️ Usa las teclas WASD para mover al personaje por el laberinto.  
+🖱️ Pulsa la tecla de ataque (espacio) para atacar a los bichos si tienes un arma equipada.  
+🖱️ Las armas solo aparecen en la habitación si están disponibles para recoger (no se muestran las armas dentro de cofres).  
+🖱️ Los cofres se muestran como iconos y pueden contener armas; para obtenerlas, entra a la habitación que contiene el cofre.  
+🖱️ El color de las puertas indica su estado: verde (abierta), rojo (cerrada).  
 🖱️ Los bichos se mueven automáticamente y su icono indica su modo de comportamiento (ver carpeta imágenes para el significado de cada imagen).
 
 ---
